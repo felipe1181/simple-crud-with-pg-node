@@ -1,8 +1,9 @@
 const express = require('express')
 const { findAllUsers,createNewUser } = require('./service.user')
+const { authorization } = require('../auth/middleware.auth')
 var userRoute = express.Router()
 
-userRoute.get('/',async (req,res)=>{
+userRoute.get('/',[authorization],async (req,res)=>{
     const allUsers = await findAllUsers()
     res.json({data: allUsers})
 })
